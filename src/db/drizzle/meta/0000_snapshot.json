@@ -1,0 +1,846 @@
+{
+  "id": "00000000-0000-0000-0000-000000000000",
+  "prevId": "",
+  "version": "5",
+  "dialect": "pg",
+  "tables": {
+    "recipes": {
+      "name": "recipes",
+      "schema": "",
+      "columns": {
+        "recipe_id": {
+          "name": "recipe_id",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "skill_level": {
+          "name": "skill_level",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "prep_time": {
+          "name": "prep_time",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "cook_time": {
+          "name": "cook_time",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "time_units": {
+          "name": "time_units",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "servings": {
+          "name": "servings",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "total_ingredients": {
+          "name": "total_ingredients",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "total_steps": {
+          "name": "total_steps",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "time_added": {
+          "name": "time_added",
+          "type": "timestamp with time zone",
+          "primaryKey": false,
+          "notNull": true,
+          "default": "now()"
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "recipes_time_units_fkey": {
+          "name": "recipes_time_units_fkey",
+          "tableFrom": "recipes",
+          "tableTo": "units",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "time_units"
+          ],
+          "columnsTo": [
+            "unit_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {
+        "recipes_title_key": {
+          "columns": [
+            "title"
+          ],
+          "nullsNotDistinct": false,
+          "name": "recipes_title_key"
+        }
+      }
+    },
+    "instruction_ingredients": {
+      "name": "instruction_ingredients",
+      "schema": "",
+      "columns": {
+        "instruction_id": {
+          "name": "instruction_id",
+          "type": "smallint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "ingredient_id": {
+          "name": "ingredient_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "unit_id": {
+          "name": "unit_id",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "quantity": {
+          "name": "quantity",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "instruction_ingredients_ingredient_id_fkey": {
+          "name": "instruction_ingredients_ingredient_id_fkey",
+          "tableFrom": "instruction_ingredients",
+          "tableTo": "ingredients",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "ingredient_id"
+          ],
+          "columnsTo": [
+            "ingredient_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "instruction_ingredients_instruction_id_fkey": {
+          "name": "instruction_ingredients_instruction_id_fkey",
+          "tableFrom": "instruction_ingredients",
+          "tableTo": "instructions",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "instruction_id"
+          ],
+          "columnsTo": [
+            "instruction_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "instruction_ingredients_unit_id_fkey": {
+          "name": "instruction_ingredients_unit_id_fkey",
+          "tableFrom": "instruction_ingredients",
+          "tableTo": "units",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "unit_id"
+          ],
+          "columnsTo": [
+            "unit_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "stories": {
+      "name": "stories",
+      "schema": "",
+      "columns": {
+        "story_id ": {
+          "name": "story_id ",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "recipe_id ": {
+          "name": "recipe_id ",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "content": {
+          "name": "content",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "stories_recipe_id _fkey": {
+          "name": "stories_recipe_id _fkey",
+          "tableFrom": "stories",
+          "tableTo": "recipes",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "recipe_id "
+          ],
+          "columnsTo": [
+            "recipe_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "recipe_ingredients": {
+      "name": "recipe_ingredients",
+      "schema": "",
+      "columns": {
+        "recipe_id": {
+          "name": "recipe_id",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "ingredient_id": {
+          "name": "ingredient_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "unit_id": {
+          "name": "unit_id",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "total_quantity": {
+          "name": "total_quantity",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "total_quantity_unit": {
+          "name": "total_quantity_unit",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "recipe_ingredients_recipe_id_fkey": {
+          "name": "recipe_ingredients_recipe_id_fkey",
+          "tableFrom": "recipe_ingredients",
+          "tableTo": "recipes",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "recipe_id"
+          ],
+          "columnsTo": [
+            "recipe_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "recipe_ingredients_unit_id_fkey": {
+          "name": "recipe_ingredients_unit_id_fkey",
+          "tableFrom": "recipe_ingredients",
+          "tableTo": "units",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "unit_id"
+          ],
+          "columnsTo": [
+            "unit_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "units": {
+      "name": "units",
+      "schema": "",
+      "columns": {
+        "unit_id": {
+          "name": "unit_id",
+          "type": "smallint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "symbol": {
+          "name": "symbol",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "type": {
+          "name": "type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "system": {
+          "name": "system",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "conversion_factor": {
+          "name": "conversion_factor",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "story_media": {
+      "name": "story_media",
+      "schema": "",
+      "columns": {
+        "story_id": {
+          "name": "story_id",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "media_id": {
+          "name": "media_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "position": {
+          "name": "position",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "story_media_media_id_fkey": {
+          "name": "story_media_media_id_fkey",
+          "tableFrom": "story_media",
+          "tableTo": "media",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "media_id"
+          ],
+          "columnsTo": [
+            "media_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "story_media_story_id_fkey": {
+          "name": "story_media_story_id_fkey",
+          "tableFrom": "story_media",
+          "tableTo": "stories",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "story_id"
+          ],
+          "columnsTo": [
+            "story_id "
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "recipe_categories": {
+      "name": "recipe_categories",
+      "schema": "",
+      "columns": {
+        "recipe_id": {
+          "name": "recipe_id",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "category_id": {
+          "name": "category_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "recipe_categories_category_id_fkey": {
+          "name": "recipe_categories_category_id_fkey",
+          "tableFrom": "recipe_categories",
+          "tableTo": "categories",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "category_id"
+          ],
+          "columnsTo": [
+            "category_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "recipe_categories_recipe_id_fkey": {
+          "name": "recipe_categories_recipe_id_fkey",
+          "tableFrom": "recipe_categories",
+          "tableTo": "recipes",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "recipe_id"
+          ],
+          "columnsTo": [
+            "recipe_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "media": {
+      "name": "media",
+      "schema": "",
+      "columns": {
+        "media_id": {
+          "name": "media_id",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "media_type": {
+          "name": "media_type",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "file_path": {
+          "name": "file_path",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "categories": {
+      "name": "categories",
+      "schema": "",
+      "columns": {
+        "category_id": {
+          "name": "category_id",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "recipe_media": {
+      "name": "recipe_media",
+      "schema": "",
+      "columns": {
+        "recipe_id": {
+          "name": "recipe_id",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "media_id": {
+          "name": "media_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "media_role": {
+          "name": "media_role",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "position": {
+          "name": "position",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "recipe_media_media_id_fkey": {
+          "name": "recipe_media_media_id_fkey",
+          "tableFrom": "recipe_media",
+          "tableTo": "media",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "media_id"
+          ],
+          "columnsTo": [
+            "media_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "recipe_media_recipe_id_fkey": {
+          "name": "recipe_media_recipe_id_fkey",
+          "tableFrom": "recipe_media",
+          "tableTo": "recipes",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "recipe_id"
+          ],
+          "columnsTo": [
+            "recipe_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "instructions": {
+      "name": "instructions",
+      "schema": "",
+      "columns": {
+        "instruction_id": {
+          "name": "instruction_id",
+          "type": "smallint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "recipe_id": {
+          "name": "recipe_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "step_number": {
+          "name": "step_number",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "component": {
+          "name": "component",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "component_step_number ": {
+          "name": "component_step_number ",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "instruction": {
+          "name": "instruction",
+          "type": "text",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "notes": {
+          "name": "notes",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "instructions_recipe_id_fkey": {
+          "name": "instructions_recipe_id_fkey",
+          "tableFrom": "instructions",
+          "tableTo": "recipes",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "recipe_id"
+          ],
+          "columnsTo": [
+            "recipe_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "instruction_media": {
+      "name": "instruction_media",
+      "schema": "",
+      "columns": {
+        "instruction_id": {
+          "name": "instruction_id",
+          "type": "smallint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "media_id": {
+          "name": "media_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "position": {
+          "name": "position",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "instruction_media_instruction_id_fkey": {
+          "name": "instruction_media_instruction_id_fkey",
+          "tableFrom": "instruction_media",
+          "tableTo": "instructions",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "instruction_id"
+          ],
+          "columnsTo": [
+            "instruction_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        },
+        "instruction_media_media_id_fkey": {
+          "name": "instruction_media_media_id_fkey",
+          "tableFrom": "instruction_media",
+          "tableTo": "media",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "media_id"
+          ],
+          "columnsTo": [
+            "media_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "ingredients": {
+      "name": "ingredients",
+      "schema": "",
+      "columns": {
+        "ingredient_id": {
+          "name": "ingredient_id",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": false
+        },
+        "PLU": {
+          "name": "PLU",
+          "type": "smallint",
+          "primaryKey": false,
+          "notNull": false
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {},
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    },
+    "media_resolutions": {
+      "name": "media_resolutions",
+      "schema": "",
+      "columns": {
+        "media_resolution_id": {
+          "name": "media_resolution_id",
+          "type": "bigint",
+          "primaryKey": true,
+          "notNull": true
+        },
+        "media_id": {
+          "name": "media_id",
+          "type": "bigint",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "resolution": {
+          "name": "resolution",
+          "type": "varchar",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "file_path": {
+          "name": "file_path",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": false,
+          "default": "gen_random_uuid()"
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "media_resolutions_media_id_fkey": {
+          "name": "media_resolutions_media_id_fkey",
+          "tableFrom": "media_resolutions",
+          "tableTo": "media",
+          "schemaTo": "public",
+          "columnsFrom": [
+            "media_id"
+          ],
+          "columnsTo": [
+            "media_id"
+          ],
+          "onDelete": "no action",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {},
+      "uniqueConstraints": {}
+    }
+  },
+  "enums": {
+    "key_status": {
+      "name": "key_status",
+      "values": {
+        "expired": "expired",
+        "invalid": "invalid",
+        "valid": "valid",
+        "default": "default"
+      }
+    },
+    "key_type": {
+      "name": "key_type",
+      "values": {
+        "stream_xchacha20": "stream_xchacha20",
+        "secretstream": "secretstream",
+        "secretbox": "secretbox",
+        "kdf": "kdf",
+        "generichash": "generichash",
+        "shorthash": "shorthash",
+        "auth": "auth",
+        "hmacsha256": "hmacsha256",
+        "hmacsha512": "hmacsha512",
+        "aead-det": "aead-det",
+        "aead-ietf": "aead-ietf"
+      }
+    },
+    "aal_level": {
+      "name": "aal_level",
+      "values": {
+        "aal3": "aal3",
+        "aal2": "aal2",
+        "aal1": "aal1"
+      }
+    },
+    "factor_type": {
+      "name": "factor_type",
+      "values": {
+        "webauthn": "webauthn",
+        "totp": "totp"
+      }
+    },
+    "factor_status": {
+      "name": "factor_status",
+      "values": {
+        "verified": "verified",
+        "unverified": "unverified"
+      }
+    },
+    "code_challenge_method": {
+      "name": "code_challenge_method",
+      "values": {
+        "plain": "plain",
+        "s256": "s256"
+      }
+    }
+  },
+  "schemas": {},
+  "_meta": {
+    "schemas": {},
+    "tables": {},
+    "columns": {}
+  }
+}
