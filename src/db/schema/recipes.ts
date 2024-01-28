@@ -33,19 +33,3 @@ export const recipes = pgTable("recipes", {
 
 export type RecipesInsert = InferInsertModel<typeof recipes>;
 export type RecipesSelect = InferSelectModel<typeof recipes>;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
