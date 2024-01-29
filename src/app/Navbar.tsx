@@ -29,7 +29,7 @@ export default function Navbar({ children }: { children: React.ReactNode }) {
             RECIPES AT THE TOP
           </p>
           <GiSeatedMouse
-            className={`h-full w-20 duration-500 ${
+            className={`h-full w-24 duration-500 ${
               appState.isMainNavOpen ? 'text-baseText' : 'text-primary'
             }`}
           />
