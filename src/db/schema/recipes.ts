@@ -1,9 +1,9 @@
-import { pgTable, unique, pgEnum, bigint, varchar, smallint, timestamp } from "drizzle-orm/pg-core"
+import { pgTable, unique, pgEnum, bigint,bigserial,  varchar, smallint, timestamp } from "drizzle-orm/pg-core"
 import { units } from "./units";
 import { InferSelectModel, InferInsertModel  } from "drizzle-orm";
 
 export const recipes = pgTable("recipes", {
-	recipeId: bigint("recipe_id", { mode: "number" }).primaryKey().notNull(),
+	mediaId: bigserial("recipe_id", { mode: "number" }).primaryKey().notNull(),
 	title: varchar("title").notNull(),
 	description: varchar("description").notNull(),
 	skillLevel: varchar("skill_level").notNull(),

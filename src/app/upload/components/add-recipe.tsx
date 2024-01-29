@@ -16,7 +16,7 @@ export default function AddForm() {
       <h1 className="text-xl font-semibold mb-4 text-slate-300">New Recipe</h1>
 
       <form action={formAction} className="flex flex-col gap-2">
-        <InputForm id="recipeId" label="Recipe ID" errors={state} />
+        {/* <InputForm id="recipeId" label="Recipe ID" errors={state} /> */}
         <InputForm id="title" label="Title" errors={state} />
         <InputForm id="description" label="Description" errors={state} />
         <InputForm id="skillLevel" label="Skill Level" errors={state} />
