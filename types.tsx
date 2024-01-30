@@ -2,11 +2,14 @@ export interface AppState {
   darkMode: boolean;
   isMainNavOpen: boolean;
 }
-export interface IngredientListItem {
+export type MeasurementKey = 'Tbsp' | 'Tsp' | 'Cup' | 'Oz';
+
+export type Sizes = 'Small' | null | 'Large';
+
+export interface IngredientListItemProps {
   measurementSystem: string | null;
-  amount: number | null;
+  amount: string | number | null;
   measurement: MeasurementKey | string | null;
-  size: string | null;
+  size: Sizes | null;
   item: string;
 }
-export type MeasurementKey = 'Tbsp' | 'Tsp' | 'Cup' | 'Oz';

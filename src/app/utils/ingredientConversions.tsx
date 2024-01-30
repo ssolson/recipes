@@ -1,18 +1,32 @@
-import { MeasurementKey } from '../../../types';
-const conversions = {
+type MeasurementKey = 'Tbsp' | 'Tsp' | 'Cup' | 'Oz';
+const conversions: {
+  [key in MeasurementKey]: { multiplier: number; newUnit: string };
+} = {
   Tbsp: { multiplier: 15, newUnit: 'ml' },
   Tsp: { multiplier: 5, newUnit: 'ml' },
   Cup: { multiplier: 240, newUnit: 'ml' },
   Oz: { multiplier: 28.35, newUnit: 'g' },
 };
 
+// Type guard to check if a string is a MeasurementKey
+function isMeasurementKey(key: any): key is MeasurementKey {
+  return Object.keys(conversions).includes(key);
+}
 export const convertToMetric = (
-  amount: number | null,
-  measurement: MeasurementKey | null,
+  amount: any,
+  measurement: MeasurementKey | string | null,
 ) => {
+  if (
+    amount === null ||
+    measurement === null ||
+    !isMeasurementKey(measurement)
+  ) {
+    return { amount, measurement };
+  }
   if (!measurement || !conversions[measurement] || amount === null) {
     return { amount, measurement };
   }
+
   const conversion = conversions[measurement];
   const convertedAmount = amount * conversion.multiplier;
   // For small measurements, instead of rounding, truncate to a single decimal place
@@ -26,9 +40,9 @@ export const convertToMetric = (
   };
 };
 
-export function decimalToFraction(decimal: number | null) {
-  if (decimal && Math.round(decimal) === decimal) {
-    return decimal; // Return the whole number without converting to fraction
+export function decimalToFraction(decimal: any) {
+  if (Math.round(decimal) === decimal) {
+    return decimal.toString(); // Return the whole number without converting to fraction
   }
   const tolerance = 0.0625; // Adjust tolerance for precision
   const fractions = [
@@ -41,15 +55,15 @@ export function decimalToFraction(decimal: number | null) {
   ];
 
   // If the decimal is close to 1, round up to 1
-  if (decimal && 1 - decimal < tolerance) return '1';
+  if (1 - decimal < tolerance) return '1';
 
   // Check for closest fraction
   for (const frac of fractions) {
-    if (decimal && Math.abs(decimal - frac.value) < tolerance) {
+    if (Math.abs(decimal - frac.value) < tolerance) {
       return frac.fraction;
     }
   }
 
   // If no close fraction is found, return as is (or handle differently)
-  return decimal;
+  return decimal.toString();
 }

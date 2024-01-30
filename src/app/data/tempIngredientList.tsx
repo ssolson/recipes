@@ -1,4 +1,6 @@
-export const totalIngredientList = [
+import { IngredientListItemProps } from '../../../types';
+
+export const totalIngredientList: IngredientListItemProps[] = [
   {
     measurementSystem: 'English',
     amount: 4,
