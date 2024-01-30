@@ -40,11 +40,11 @@ export default function IngredientList() {
   return (
     <main className="w-full md:w-4/5 lg:w-3/4 h-full flex p-4">
       <div className="border w-full h-fit p-6 rounded-md bg-base shadow-lg shadow-baseShadow">
-        <div className="flex justify-between mb-2">
+        <div className="flex justify-between mb-6 items-center">
           <p className="text-2xl font-bold">Ingredients</p>
           <button
             onClick={toggleMeasurementSystem}
-            className="mb-4 w-40 px-2 py-1 bg-primary text-white font-semibold rounded-md"
+            className=" w-40 px-2 py-1 bg-primary text-white text-sm font-semibold rounded-md"
           >
             Switch to {isMetric ? 'English' : 'Metric'}
           </button>
