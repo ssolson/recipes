@@ -1,18 +1,9 @@
-import { pgTable, unique, pgEnum, bigint, varchar, smallint, timestamp } from "drizzle-orm/pg-core"
+import { pgTable, unique, pgEnum, bigint,bigserial,  varchar, smallint, timestamp } from "drizzle-orm/pg-core"
 import { units } from "./units";
 import { InferSelectModel, InferInsertModel  } from "drizzle-orm";
 
-export const keyStatus = pgEnum("key_status", ['expired', 'invalid', 'valid', 'default'])
-export const keyType = pgEnum("key_type", ['stream_xchacha20', 'secretstream', 'secretbox', 'kdf', 'generichash', 'shorthash', 'auth', 'hmacsha256', 'hmacsha512', 'aead-det', 'aead-ietf'])
-export const aalLevel = pgEnum("aal_level", ['aal3', 'aal2', 'aal1'])
-export const factorType = pgEnum("factor_type", ['webauthn', 'totp'])
-export const factorStatus = pgEnum("factor_status", ['verified', 'unverified'])
-export const codeChallengeMethod = pgEnum("code_challenge_method", ['plain', 's256'])
-
-
 export const recipes = pgTable("recipes", {
-	// You can use { mode: "bigint" } if numbers are exceeding js number limitations
-	recipeId: bigint("recipe_id", { mode: "number" }).primaryKey().notNull(),
+	mediaId: bigserial("recipe_id", { mode: "number" }).primaryKey().notNull(),
 	title: varchar("title").notNull(),
 	description: varchar("description").notNull(),
 	skillLevel: varchar("skill_level").notNull(),
