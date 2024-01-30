@@ -38,8 +38,8 @@ export default function IngredientList() {
   });
 
   return (
-    <main className="w-full h-full flex p-4">
-      <div className="border w-full h-fit p-2">
+    <main className="w-full md:w-4/5 lg:w-3/4 h-full flex p-4">
+      <div className="border w-full h-fit p-6 rounded-md bg-base shadow-lg shadow-baseShadow">
         <div className="flex justify-between mb-2">
           <p className="text-2xl font-bold">Ingredients</p>
           <button
