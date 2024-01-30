@@ -4,6 +4,7 @@ import { AppState } from '../../../types';
 import React, { createContext, useState, ReactNode } from 'react';
 
 const initialState: AppState = {
+  darkMode: false,
   isMainNavOpen: true,
 };
 

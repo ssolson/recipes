@@ -14,4 +14,15 @@
     --color-accent: rgb(255, 251, 14);
     --color-baseShadow: rgb(82, 82, 82);
   }
+  .dark {
+    --color-base: #131414;
+    --color-base1: rgb(33, 36, 35);
+    --color-base2: rgb(42, 46, 45);
+    --color-base3: rgb(80, 90, 87);
+    --color-baseText: #ffffff;
+    --color-primary: rgb(214, 25, 97);
+    --color-secondary: rgb(194, 230, 231);
+    --color-accent: rgb(255, 251, 14);
+    --color-baseShadow: rgb(0, 0, 0);
+  }
 }
