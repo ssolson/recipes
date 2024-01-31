@@ -1,4 +1,4 @@
-import AddForm from '@/app/upload/components/add-recipe';
+import AddRecipeForm from '@/app/upload/components/add-recipe';
 // import ListSong from '@/components/list-song';
 
 export default function Page() {

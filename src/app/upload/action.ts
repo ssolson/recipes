@@ -5,10 +5,9 @@ import z, { ZodError } from "zod";
 
 import { drizzle } from 'drizzle-orm/postgres-js'
 import postgres, { PostgresError } from 'postgres'
-import { categories, ingredients, instructionIngredients, instructionMedia,  instructions, mediaResolutions, media, recipeCategories, recipeIngredients, recipeMedia, recipes, stories, storyMedia,  units  } from '@/db/schema'
+import { recipes } from '@/db/schema'
 
 const scheme = z.object({
-    // recipeId: z.number().positive(),
     title: z.string().min(1),
     description: z.string().min(1),
     skillLevel: z.string().min(1),
@@ -29,7 +28,6 @@ export async function createRecipe(prevState: any, formData: FormData) {
     console.log('createRecipe called with formData:', formData);
   try {
     const parse = scheme.safeParse({
-        // recipeId: Number(formData.get("recipeId")),
         title: formData.get("title"),
         description: formData.get("description"),
         skillLevel: formData.get("skillLevel"),
