@@ -1,6 +1,6 @@
 import { pgTable, unique, pgEnum, bigint,bigserial,  varchar, smallint, timestamp } from "drizzle-orm/pg-core"
 import { units } from "./units";
-import { InferSelectModel, InferInsertModel  } from "drizzle-orm";
+import { createInsertSchema, createSelectSchema } from 'drizzle-zod';
 
 export const recipes = pgTable("recipes", {
 	mediaId: bigserial("recipe_id", { mode: "number" }).primaryKey().notNull(),
@@ -22,5 +22,15 @@ export const recipes = pgTable("recipes", {
 	}
 });
 
-export type RecipesInsert = InferInsertModel<typeof recipes>;
-export type RecipesSelect = InferSelectModel<typeof recipes>;
+
+// Schema for selecting a recipe - can be used to validate API responses
+const selectUserSchema = createSelectSchema(recipes);
+
+// Refining the fields - useful if you want to change the fields before they become nullable/optional in the final schema
+export const insertRecipesSchema = createInsertSchema(recipes, {
+	prepTime: (schema) => schema.prepTime.positive(),
+	cookTime: (schema) => schema.cookTime.positive(),
+	servings: (schema) => schema.servings.positive(),
+	totalIngredients: (schema) => schema.totalIngredients.positive(),
+	totalSteps: (schema) => schema.totalSteps.positive(),
+  });
