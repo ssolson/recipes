@@ -1,16 +1,15 @@
 'use client';
 
-/**
- * `AddRecipeForm` is a React functional component that renders a form for adding new recipes.
- * It utilizes the `useFormState` hook to manage form state and handle submission.
- * Each field is created using the `InputForm` component.
- */
-
 import { useFormState } from 'react-dom';
 import { createRecipe } from '@/app/upload/actions/createRecipe';
 import Button from '@/app/upload/components/button';
 import InputForm from '@/app/upload/components/input-form';
 
+/**
+ * `AddRecipeForm` is a React functional component that renders a form for adding new recipes.
+ * It utilizes the `useFormState` hook to manage form state and handle submission.
+ * Each field is created using the `InputForm` component.
+ */
 export default function AddRecipeForm() {
   const [state, formAction] = useFormState(createRecipe, null);
   return (
