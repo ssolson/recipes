@@ -1,7 +1,7 @@
 'use client';
 
 import { useFormState } from 'react-dom';
-import { createRecipe } from '@/app/upload/actions/createRecipe';
+import { createRecipe } from '@/app/upload/components/createRecipe';
 import Button from '@/app/upload/components/button';
 import InputForm from '@/app/upload/components/input-form';
 
